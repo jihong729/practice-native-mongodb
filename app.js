@@ -17,5 +17,31 @@ client.connect(function(err) {
 
   const db = client.db(dbName);
 
-  client.close();
+  insertDocuments(db, function() {
+    client.close();
+  });
 });
+
+
+const insertDocuments = function(db, callback) {
+  // Get the documents collection
+  const collection = db.collection('fruits');
+  // Insert some documents
+  collection.insertMany([{
+    name: "Apple",
+    score: 8,
+    review: "Great fruit"
+  }, {
+    name: "Orange",
+    score: 6,
+    review: "Kinda sour"
+  }, {
+    name: "Banana",
+    score: 9,
+    review: "Great flavor!"
+  }], function(err, result) {
+    assert.equal(err, null);
+    console.log("Inserted 3 documents into the collection");
+    callback(result);
+  });
+}
