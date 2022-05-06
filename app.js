@@ -1,16 +1,56 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/studentsDB');
+mongoose.connect('mongodb://localhost:27017/fruitsDB');
 
 // Creating a new model
-const studentSchema = new mongoose.Schema({
+const fruitSchema = new mongoose.Schema({
+  name: String,
+  rating: Number,
+  review: String
+});
+
+const Fruit = mongoose.model("Fruit", fruitSchema);
+
+// Creating a new document
+const apple = new Fruit({
+  name: "Apple",
+  raging: 7,
+  review: "Pretty good but needs more juice"
+});
+
+const kiwi = new Fruit({
+  name: "Kiwi",
+  score: 10,
+  review: "The best fruit"
+});
+
+const orange = new Fruit({
+  name: "Orange",
+  score: 4,
+  review: "Too sour for me"
+});
+
+const banana = new Fruit({
+  name: "Banana",
+  score: 3,
+  review: "Weird texture"
+});
+
+Fruit.insertMany([apple, kiwi, orange, banana], function(err){
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Successfully saved all the fruits to fruitsDB")
+  }
+})
+
+// Saving the document one by one
+// fruit.save().then(() => console.log('Successfully saved fruit to fruitsDB'));
+
+const personSchema = new mongoose.Schema({
   name: String,
   age: Number
 });
 
-const Student = mongoose.model('Student', studentSchema);
+const Person = mongoose.model('Person', personSchema);
 
-// Creating a new document
-const student = new Student({ name: 'John', age: 35 });
-
-// Saving the document
-student.save().then(() => console.log('Successfully saved'));
+const person = new Person({ name: 'John', age: 35 });
