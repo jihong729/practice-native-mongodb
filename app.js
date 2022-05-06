@@ -35,13 +35,28 @@ const banana = new Fruit({
   review: "Weird texture"
 });
 
-Fruit.insertMany([apple, kiwi, orange, banana], function(err){
+// Fruit.insertMany([apple, kiwi, orange, banana], function(err){
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Successfully saved all the fruits to fruitsDB")
+//   }
+// })
+
+Fruit.find(function(err, fruits){
   if (err) {
     console.log(err);
   } else {
-    console.log("Successfully saved all the fruits to fruitsDB")
+
+    mongoose.connection.close( function() {
+      process.exit(0);
+    });
+
+    fruits.forEach(function(fruit){
+      console.log(fruit.name);
+    });
   }
-})
+});
 
 // Saving the document one by one
 // fruit.save().then(() => console.log('Successfully saved fruit to fruitsDB'));
@@ -54,3 +69,5 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema);
 
 const person = new Person({ name: 'John', age: 35 });
+
+// person.save();
