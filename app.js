@@ -66,16 +66,24 @@ Fruit.find(function(err, fruits){
     // });
 
     fruits.forEach(function(fruit){
-      console.log(fruit.name);
+      console.log(fruit);
     });
   }
 });
 
-Fruit.updateOne({_id: "627680da67f47eb5e7283eab"}, {name: "Peach"}, function(err){
+// Fruit.updateOne({_id: "627680da67f47eb5e7283eab"}, {name: "Peach"}, function(err){
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("Successfully updated the document");
+//   }
+// });
+
+Fruit.deleteMany({review: "Peaches are so yummy!"}, function(err){
   if (err) {
     console.log(err);
   } else {
-    console.log("Successfully updated the document");
+    console.log("Successfully deleted the documents");
   }
 });
 
