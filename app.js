@@ -3,10 +3,11 @@ mongoose.connect('mongodb://localhost:27017/fruitsDB');
 
 // Creating a new model
 const fruitSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Please check your data entry, no names added.']
-  },
+  // name: {
+  //   type: String
+  //   // required: [true, 'Please check your data entry, no names added.']
+  // },
+  name: String,
   rating: {
     type: Number,
     min: 1,
@@ -19,7 +20,6 @@ const Fruit = mongoose.model("Fruit", fruitSchema);
 
 // Creating a new document
 const fruit = new Fruit({
-  name: "Peach",
   rating: 10,
   review: "Peaches are so yummy!"
 });
@@ -61,11 +61,21 @@ Fruit.find(function(err, fruits){
     console.log(err);
   } else {
 
-    mongoose.connection.close();
+    // mongoose.connection.close(function () {
+    //   console.log('Mongoose connection disconnected');
+    // });
 
     fruits.forEach(function(fruit){
       console.log(fruit.name);
     });
+  }
+});
+
+Fruit.updateOne({_id: "627680da67f47eb5e7283eab"}, {name: "Peach"}, function(err){
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Successfully updated the document");
   }
 });
 
